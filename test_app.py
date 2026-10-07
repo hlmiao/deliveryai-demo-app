@@ -19,6 +19,13 @@ class AppTests(unittest.TestCase):
             },
         )
 
+    def test_health(self):
+        response = self.client.get("/health")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.is_json)
+        self.assertIn("application/json", response.content_type)
+        self.assertEqual(response.get_json(), {"status": "ok"})
+
 
 if __name__ == "__main__":
     unittest.main()
